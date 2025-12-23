@@ -22,25 +22,27 @@ const useAppContextProvider = () => {
 
   useLocalStorage({ graphData, setGraphData });
 
-  // 🔹 PRESERVED FUNCTION
+
   const getFiscalData = async () => {
+    // TODO: Replace this with functionality to retrieve the data from the fiscalSummary endpoint
     const res = await axios.get(`${API_BASE}/fiscalSummary`);
-    return Array.isArray(res.data) ? (res.data) : [];
+    return res.data?.yearResults ?? []
   };
 
-  // 🔹 PRESERVED FUNCTION
+
   const getCitizenshipResults = async () => {
+    // TODO: Replace this with functionality to retrieve the data from the citizenshipSummary endpoint
     const res = await axios.get(`${API_BASE}/citizenshipSummary`);
     return Array.isArray(res.data) ? res.data : [];
   };
 
-  // 🔹 PRESERVED FUNCTION
+
   const updateQuery = () => {
     setIsDataLoading(true);
   };
 
-  // 🔹 PRESERVED FUNCTION
   const fetchData = async () => {
+    // TODO: fetch all the required data and set it to the graphData state
     try {
       const [yearResults, citizenshipResults] = await Promise.all([
         getFiscalData(),
@@ -69,15 +71,14 @@ const useAppContextProvider = () => {
     () => graphData?.yearResults?.map(({ fiscal_year }) => Number(fiscal_year)) ?? [];
 
   useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
     if (isDataLoading) {
       fetchData();
     }
   }, [isDataLoading]);
-
-  // Initial load (replaces test_data.json behavior)
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return {
     graphData,
