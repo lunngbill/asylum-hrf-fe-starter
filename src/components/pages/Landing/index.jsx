@@ -42,7 +42,7 @@ export const LandingPage = () => {
   return (
     <div className="w-screen bg-white text-gray-900">
   
-      {/* PAGE TITLE */}
+      {/*page title*/}
       <section className="px-20 py-16 text-center">
         <h2 className="text-5xl font-serif">
           Asylum Office Grant Rate Tracker
@@ -55,7 +55,7 @@ export const LandingPage = () => {
         </p>
       </section>
   
-      {/* CHART PREVIEWS */}
+      {/*charts and graphs*/}
       <section className="px-20">
         <div className="grid grid-cols-3 gap-16 items-end text-center">
           <div>
@@ -75,7 +75,7 @@ export const LandingPage = () => {
         </div>
       </section>
   
-      {/* PRIMARY ACTIONS */}
+      {/*data buttons*/}
       <section className="mt-10 flex justify-center gap-6">
         <button
           onClick={handleViewData}
@@ -92,6 +92,7 @@ export const LandingPage = () => {
         </button>
       </section>
   
+      {/*middle section*/}
       <section className="px-20 py-20 grid grid-cols-2 gap-16 items-center">
         <img src={paperStack} className="w-full" />
   
@@ -135,7 +136,7 @@ export const LandingPage = () => {
         </div>
       </section>
   
-      {/* BOTTOM ACTIONS */}
+      {/*bottom buttons*/}
       <section className="pb-20 text-center">
         <button
           onClick={handleReadMore}
