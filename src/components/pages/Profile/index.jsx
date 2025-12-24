@@ -9,42 +9,61 @@ import { useAuth0 } from '@auth0/auth0-react';
  * - Make this page a protected Route
  */
 const Profile = () => {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated, isLoading, logout } = useAuth0();
 
   if (isLoading) {
-    return <div className="text-center p-4">Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <p>Loading...</p>
+      </div>
+    );
   }
 
-  // Protected behavior
   if (!isAuthenticated) {
     return (
-      <div className="text-center p-4">
-        You must be logged in to view this page.
+      <div className="flex justify-center items-center">
+        <p>You must be logged in to view this page.</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-md mx-auto p-6 text-center">
-      <h1 className="text-2xl font-semibold mb-4">Profile</h1>
+    <div className="flex justify-center items-center">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-[320px] text-center">
 
-      {user?.picture && (
-        <img
-          src={user.picture}
-          alt={user.name}
-          className="w-24 h-24 rounded-full mx-auto mb-4"
-        />
-      )}
+        {/* Avatar */}
+        <div className="flex justify-center mb-4">
+          {user.picture ? (
+            <img
+              src={user.picture}
+              alt="Profile"
+              className="w-20 h-20 rounded-full"
+            />
+          ) : (
+            <div className="w-20 h-20 rounded-full bg-orange-500 flex items-center justify-center text-white text-2xl">
+              {user.email?.[0]?.toUpperCase()}
+            </div>
+          )}
+        </div>
 
-      <p className="mb-2">
-        <strong>Name:</strong> {user.name}
-      </p>
+        {/* Email */}
+        <h2 className="text-lg font-semibold">{user.email}</h2>
+        <p className="text-sm text-gray-500 mb-6">{user.email}</p>
 
-      {user.email && (
-        <p className="mb-2">
-          <strong>Email:</strong> {user.email}
-        </p>
-      )}
+        {/* Logout button */}
+        <button
+          onClick={() =>
+            logout({
+              logoutParams: {
+                returnTo: window.location.origin,
+              },
+            })
+          }
+          className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 };
